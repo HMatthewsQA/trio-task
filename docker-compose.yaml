@@ -6,7 +6,9 @@ services:
     - target: 5000
       published: 5000
       protocol: tcp
-  sql-db:
+    depends_on:
+    - mysql
+  mysql:
     build: ./db
     ports:
     - target: 3306

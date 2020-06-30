@@ -1,8 +1,5 @@
-FROM mysql
-RUN CREATE DATABASE flask-db;
-RUN use flask-db;
+FROM mysql:5.7
 COPY . .
-# All scripts in docker-entrypoint-initdb.d/ are automatically
-# executed during container startup
+ADD CreateTable.sql /docker-entrypoint-initdb.d
 EXPOSE 3306
-
+ENTRYPOINT ["docker-entrypoint.sh"]
