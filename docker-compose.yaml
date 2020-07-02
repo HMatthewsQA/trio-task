@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   flask-app:
+    image: hmatthews/trio-task-flask-app
     build: ./flask-app
     ports:
     - target: 5000
@@ -9,10 +10,13 @@ services:
     depends_on:
     - mysql
     environment:
-            USERNAME: ${USERNAME}
-            PASSWORD: ${PASSWORD}
-            SECRET_KEY: ${SECRET_KEY}
+    - USERNAME=${USERNAME}
+    - PASSWORD=${PASSWORD}
+    - SECRET_KEY=${SECRET_KEY}
+    deploy:
+      replicas: 5
   mysql:
+    image: hmatthews/trio-task-mysql
     build: ./db
     command: --default-authentication-plugin=mysql_native_password
     ports:
